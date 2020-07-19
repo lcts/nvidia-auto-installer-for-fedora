@@ -32,6 +32,6 @@ setuptools.setup(name='nvautoinstall',
           'distro',
       ],
       entry_points={
-          'console_scripts': ['nvautoinstall=nvautoinstall:main'],
+          'console_scripts': ['nvautoinstall=nvautoinstall.MainFunction:clim'],
       },
       )
