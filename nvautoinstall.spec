@@ -36,7 +36,7 @@ repositories.
 %doc pics/
 %doc SCREENSHOTS.md
 %license LICENSE
-%{_bindir}/NVAutoInstall
+%{_bindir}/nvautoinstall
 %{python3_sitelib}/%{name}-*.egg-info/
 %{python3_sitelib}/%{name}/
 
