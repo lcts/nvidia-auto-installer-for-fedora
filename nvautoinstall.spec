@@ -6,7 +6,7 @@ Release: 0.2%{?dist}
 License: GPLv3
 Summary: A CLI tool that helps you install proprietary NVIDIA drivers and much more
 Url: https://github.com/t0xic0der/%{srcname}
-Source0: https://github.com/lcts/%{srcname}/archive/v%{version}.tar.gz
+Source0: https://github.com/lcts/%{srcname}/archive/%{name}-%{version}.tar.gz
 
 BuildArch: noarch
 
@@ -22,7 +22,7 @@ repositories.
 
 #-- PREP, BUILD & INSTALL -----------------------------------------------------#
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup
 
 %build
 %py3_build
