@@ -1,6 +1,5 @@
 %global srcname nvidia-auto-installer-for-fedora
 
-Name: nvautoinstall
 Version: 0.4.0
 Release: 0.4%{?dist}
 License: GPLv3
