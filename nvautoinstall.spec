@@ -10,8 +10,13 @@ Source0: https://github.com/lcts/%{srcname}/archive/%{name}-%{version}.tar.gz
 
 BuildArch: noarch
 
+%if 0%{?el6}
+BuildRequires: python34-devel
+BuildRequires: python34-setuptools
+%else
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
+%endif
 
 %description
 NVAutoInstall is a small CLI tool designed to facilitate installation of the
