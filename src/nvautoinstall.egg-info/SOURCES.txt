@@ -1,0 +1,11 @@
+README.md
+setup.py
+src/nvautoinstall/ColoramaCalls.py
+src/nvautoinstall/MainFunction.py
+src/nvautoinstall/__init__.py
+src/nvautoinstall.egg-info/PKG-INFO
+src/nvautoinstall.egg-info/SOURCES.txt
+src/nvautoinstall.egg-info/dependency_links.txt
+src/nvautoinstall.egg-info/entry_points.txt
+src/nvautoinstall.egg-info/requires.txt
+src/nvautoinstall.egg-info/top_level.txt

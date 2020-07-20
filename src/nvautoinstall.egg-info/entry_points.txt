@@ -1,0 +1,3 @@
+[console_scripts]
+nvautoinstall = nvautoinstall.MainFunction:clim
+

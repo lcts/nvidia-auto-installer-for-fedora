@@ -20,11 +20,34 @@ def get_version(rel_path):
         raise RuntimeError("Unable to find version string.")
 
 # setuptools configuration
-setuptools.setup(name='nvautoinstall',
-    version=get_version("nvautoinstall/__init__.py"),
+setuptools.setup(
+    name='nvautoinstall',
     description='Auto-installer for proprietary NVidia drivers on Fedora',
     long_description=readme(),
     long_description_content_type="text/markdown",
+    url='https://github.com/t0xic0der/nvidia-auto-installer-for-fedora',
+    author='Akashdeep Dhar',
+    license='GPLv3',
+
+    # get version from source
+    version=get_version("src/nvautoinstall/__init__.py"),
+
+    # tell distutils packages are under src directory
+    package_dir={
+      '': 'src',
+    },
+    packages=setuptools.find_packages('src'),
+    install_requires=[
+      'click',
+      'colorama',
+      'distro',
+    ],
+
+    # automatically create console scripts
+    entry_points={
+      'console_scripts': ['nvautoinstall=nvautoinstall.MainFunction:clim'],
+    },
+
     classifiers=[
       'Development Status :: 4 - Beta',
       'Environment :: Console',
@@ -36,18 +59,4 @@ setuptools.setup(name='nvautoinstall',
       'Topic :: System :: Hardware :: Hardware Drivers',
       'Topic :: Utilities',
     ],
-    keywords='',
-    url='https://github.com/t0xic0der/nvidia-auto-installer-for-fedora',
-    author='Akashdeep Dhar',
-    author_email='nobody@example.com',
-    license='GPLv3',
-    packages=setuptools.find_packages(),
-    install_requires=[
-      'click',
-      'colorama',
-      'distro',
-    ],
-    entry_points={
-      'console_scripts': ['nvautoinstall=nvautoinstall.MainFunction:clim'],
-    },
     )
