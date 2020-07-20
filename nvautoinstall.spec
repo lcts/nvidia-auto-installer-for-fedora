@@ -2,7 +2,7 @@
 
 Name: nvautoinstall
 Version: 0.4.0
-Release: 0.4%{?dist}
+Release: 0.5%{?dist}
 License: GPLv3
 Summary: A CLI tool that helps you install proprietary NVIDIA drivers and much more
 Url: https://github.com/t0xic0der/%{srcname}
@@ -47,7 +47,7 @@ repositories.
 
 #-- CHANGELOG -----------------------------------------------------------------#
 %changelog
-* Sat Jul 18 2020 Christopher Engelhard <ce@lcts.de> 0.4.0-0.4
+* Sat Jul 18 2020 Christopher Engelhard <ce@lcts.de> 0.4.0-0.5
 - test again
 
 * Sat Jul 18 2020 Christopher Engelhard <ce@lcts.de> 0.4.0-0.2
