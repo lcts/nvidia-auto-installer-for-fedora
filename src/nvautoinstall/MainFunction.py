@@ -563,7 +563,7 @@ class InstallationMode(object):
 @click.option("--getall", "instmode", flag_value="getall", help="This mode installs all the above packages")
 @click.option("--cheksu", "instmode", flag_value="cheksu", help="This mode allows you to check the user privilege level")
 @click.option("--compat", "instmode", flag_value="compat", help="This mode allows you to check your compatibility")
-@click.version_option(version="v0.3.0", prog_name="NVAutoInstFedora32 by t0xic0der")
+@click.version_option(version=__version__, prog_name="NVAutoInstFedora32 by t0xic0der")
 def clim(instmode):
     instobjc = InstallationMode()
     print(Style.BRIGHT + Fore.GREEN + "[ # ] NVIDIA AUTOINSTALLER FOR FEDORA 32 AND ABOVE" + Style.RESET_ALL)
