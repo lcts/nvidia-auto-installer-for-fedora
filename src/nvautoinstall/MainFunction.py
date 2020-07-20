@@ -1,5 +1,7 @@
 import os, subprocess, sys, click, distro
 from colorama import init, Fore, Style
+
+from nvautoinstall import __version__
 from nvautoinstall.ColoramaCalls import StatusDecorator
 
 init()
