@@ -36,13 +36,62 @@ class Coll_SupportCheck(object):
         return jsondt
 
     def avbl(self):
-        if str(distro.os_release_info()["name"]) == "Fedora":
-            if int(distro.os_release_info()["version_id"]) >= 32:
+        if str(distro.id()) == "fedora":
+            if int(distro.major_version()) >= 32:
                 return "full"
             else:
-                return "half"
+                return "experimental"
+        elif: str(distro.id()) == "centos" or str(distro.id()) == "rhel" and int(distro.major_version()) >= 6:
+            return "experimental"
         else:
             return False
+
+# manages differences between supported distros/versions
+class Coll_SysConfig(object):
+    # check if on CentOS/RHEL
+    def isel(self):
+        if str(distro.id()) == "fedora":
+            return false
+        else:
+            return true
+
+    # set default package manager
+    def pkgmanager(self):
+        if self.isel() and int(distro.major_version()) < 8:
+            return "yum"
+        else:
+            return "dnf"
+
+    # define additional packages needed
+    def extrapkgs(self):
+        if self.isel():
+            return "epel-release"
+        else:
+            return false
+
+    # set URL of NVidia repository
+    def nvidiarepo(self):
+        if self.isel():
+            return str("http://developer.download.nvidia.com/compute/cuda/repos/rhel" + distro.major_version() + "/x86_64/cuda/cuda-rhel" + distro.major_version() + ".repo")
+        else:
+            return "http://developer.download.nvidia.com/compute/cuda/repos/fedora29/x86_64/cuda/cuda-fedora29.repo"
+
+    # set command to install a downloaded RPM file
+    def localinstall(self):
+        if self.pkgmanager() == "dnf":
+            if self.isel():
+                return str(self.pkgmanager() + "install --nogpgcheck")
+            else:
+                return str(self.pkgmanager() + "install")
+        else:
+            return str(self.pkgmanager() + "localinstall --nogpgcheck")
+
+    # set RPM Fusion nonfree repo package URL
+    def rpmfrepo(self)
+        if
+            return str("https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-" + distro.major_version() + ".noarch.rpm"
+        else:
+            return str("https://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-" + distro.major_version() + ".noarch.rpm"
 
 class Coll_RPMFHandler(object):
     def avbl(self):
@@ -176,6 +225,7 @@ class Coll_SuperuserCheck(object):
             return False
 
 SupportCheck = Coll_SupportCheck()
+SysConfig = Coll_SysConfig()
 RPMFHandler = Coll_RPMFHandler()
 DriverInstaller = Coll_DriverInstaller()
 x86LibInstaller = Coll_X86LibInstaller()
@@ -539,8 +589,8 @@ class InstallationMode(object):
                 if data == "full":
                     DecoratorObject.SuccessMessage("Supported OS detected")
                     DecoratorObject.NormalMessage("This tool is expected to work correctly here")
-                elif data == "half":
-                    DecoratorObject.WarningMessage("Minimally supported OS detected")
+                elif data == "experimental":
+                    DecoratorObject.WarningMessage("Support for this OS is experimental")
                     DecoratorObject.NormalMessage("Discretion is advised while using this tool")
         DecoratorObject.FailureMessage("Leaving installer")
         sys.exit(0)
