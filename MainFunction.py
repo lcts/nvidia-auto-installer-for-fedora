@@ -582,16 +582,18 @@ class InstallationMode(object):
                 DecoratorObject.NormalMessage(indx + ": " + data[indx])
             DecoratorObject.SectionHeader("CHECKING FOR HOST COMPATIBILITY...")
             data = SupportCheck.avbl()
-            if data is False:
+            if data == "full":
+                DecoratorObject.SuccessMessage("Supported OS detected")
+                DecoratorObject.NormalMessage("This tool is expected to work correctly here")
+            elif data == "experimental":
+                DecoratorObject.WarningMessage("Support for this OS is experimental")
+                DecoratorObject.NormalMessage("Discretion is advised while using this tool")
+            elif data == "limited":
+                DecoratorObject.WarningMessage("Support for this OS is limited")
+                DecoratorObject.NormalMessage("Some features are not available. Discretion is advised while using this tool")
+            else:
                 DecoratorObject.FailureMessage("Unsupported OS detected")
                 DecoratorObject.NormalMessage("This tool cannot be used here")
-            else:
-                if data == "full":
-                    DecoratorObject.SuccessMessage("Supported OS detected")
-                    DecoratorObject.NormalMessage("This tool is expected to work correctly here")
-                elif data == "experimental":
-                    DecoratorObject.WarningMessage("Support for this OS is experimental")
-                    DecoratorObject.NormalMessage("Discretion is advised while using this tool")
         DecoratorObject.FailureMessage("Leaving installer")
         sys.exit(0)
 
