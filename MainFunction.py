@@ -51,9 +51,9 @@ class Coll_SysConfig(object):
     # check if on CentOS/RHEL
     def isel(self):
         if str(distro.id()) == "fedora":
-            return false
+            return False
         else:
-            return true
+            return True
 
     # set default package manager
     def pkgmanager(self):
@@ -67,7 +67,7 @@ class Coll_SysConfig(object):
         if self.isel():
             return "epel-release"
         else:
-            return false
+            return ""
 
     # set URL of NVidia repository
     def nvidiarepo(self):
@@ -92,6 +92,36 @@ class Coll_SysConfig(object):
             return str("https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-" + distro.major_version() + ".noarch.rpm"
         else:
             return str("https://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-" + distro.major_version() + ".noarch.rpm"
+
+class Test_RepoHandler(object, repovalue, sysconfig):
+    def __init__(repo, syscfg):
+        self.repo = str(repo)
+        self.syscfg = syscfg
+
+    def avbl(self):
+        command = str(self.syscfg.pkgmanager() + "repolist | grep '" + self.repo + "'")
+        prompt = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        output = prompt.communicate()[0].decode("utf-8")
+        if self.repo in output:
+            return True
+        else:
+            return False
+
+    def conn(self):
+        if self.repo == "rpmfusion-nonfree":
+            url = "rpmfusion.org"
+        elif self.repo == "cuda":
+            url = "developer.download.nvidia.com"
+        else:
+            return False
+        retndata = subprocess.getstatusoutput("ping -c 3 -W 3" + url)[0]
+        if retndata == 0:
+            return True
+        else:
+            return False
+
+    def
+
 
 class Coll_RPMFHandler(object):
     def avbl(self, syscfg):
