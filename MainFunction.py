@@ -94,7 +94,7 @@ class Coll_SysConfig(object):
             return str("https://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-" + distro.major_version() + ".noarch.rpm"
 
 class Coll_RPMFHandler(object):
-    def avbl(self):
+    def avbl(self, syscfg):
         comand = "dnf repolist | grep 'rpmfusion-nonfree-nvidia-driver'"
         prompt = subprocess.Popen(comand, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         output = prompt.communicate()[0].decode("utf-8")
@@ -110,7 +110,7 @@ class Coll_RPMFHandler(object):
         else:
             return False
 
-    def main(self):
+    def main(self, syscfg):
         os.system("dnf install -y fedora-workstation-repositories")
         retndata = subprocess.getstatusoutput("dnf config-manager --set-enable rpmfusion-nonfree-nvidia-driver")[0]
         if retndata == 0:
@@ -119,7 +119,7 @@ class Coll_RPMFHandler(object):
             return False
 
 class Coll_DriverInstaller(object):
-    def main(self):
+    def main(self, syscfg):
         ExecStatusCode = os.system(
             "dnf install -y gcc kernel-headers kernel-devel akmod-nvidia xorg-x11-drv-nvidia xorg-x11-drv-nvidia-libs")
         if ExecStatusCode == 0:
@@ -139,7 +139,7 @@ class Coll_DriverInstaller(object):
             return pkname
 
 class Coll_X86LibInstaller(object):
-    def main(self):
+    def main(self, syscfg):
         ExecStatusCode = os.system("dnf install -y xorg-x11-drv-nvidia-libs.i686")
         if ExecStatusCode == 0:
             return True
@@ -147,7 +147,7 @@ class Coll_X86LibInstaller(object):
             return False
 
 class Coll_PlCudaInstaller(object):
-    def rpck(self):
+    def rpck(self, syscfg):
         comand = "dnf repolist | grep 'cuda'"
         prompt = subprocess.Popen(comand, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         output = prompt.communicate()[0].decode("utf-8")
@@ -156,7 +156,7 @@ class Coll_PlCudaInstaller(object):
         else:
             return False
 
-    def rpin(self):
+    def rpin(self, syscfg):
         retndata = subprocess.getstatusoutput("dnf config-manager --add-repo http://developer.download.nvidia.com/compute/cuda/repos/fedora29/x86_64/cuda-fedora29.repo")[0]
         print(retndata)
         if retndata == 0:
@@ -171,21 +171,21 @@ class Coll_PlCudaInstaller(object):
         else:
             return False
 
-    def rpup(self):
+    def rpup(self, syscfg):
         ExecStatusCode = os.system("dnf clean all")
         if ExecStatusCode == 0:
             return True
         else:
             return False
 
-    def meta(self):
+    def meta(self, syscfg):
         ExecStatusCode = os.system("dnf install -y xorg-x11-drv-nvidia-cuda")
         if ExecStatusCode == 0:
             return True
         else:
             return False
 
-    def main(self):
+    def main(self, syscfg):
         ExecStatusCode = os.system("dnf install -y cuda")
         if ExecStatusCode == 0:
             return True
@@ -193,7 +193,7 @@ class Coll_PlCudaInstaller(object):
             return False
 
 class Coll_FFMPEGInstaller(object):
-    def main(self):
+    def main(self, syscfg):
         ExecStatusCode = os.system("dnf install -y xorg-x11-drv-nvidia-cuda-libs")
         if ExecStatusCode == 0:
             return True
@@ -201,7 +201,7 @@ class Coll_FFMPEGInstaller(object):
             return False
 
 class Coll_VidAccInstaller(object):
-    def main(self):
+    def main(self, syscfg):
         ExecStatusCode = os.system("dnf install -y vdpauinfo libva-vdpau-driver libva-utils")
         if ExecStatusCode == 0:
             return True
@@ -209,7 +209,7 @@ class Coll_VidAccInstaller(object):
             return False
 
 class Coll_VulkanInstaller(object):
-    def main(self):
+    def main(self, syscfg):
         ExecStatusCode = os.system("dnf install -y vulkan")
         if ExecStatusCode == 0:
             return True
